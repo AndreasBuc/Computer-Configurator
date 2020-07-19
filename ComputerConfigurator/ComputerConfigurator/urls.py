@@ -23,8 +23,8 @@ from core.views import IndexTemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include('core.api.urls')),
 
-    # path('api/', include('songs.urls')),
 
     # This View is provided by django registration
     path("accounts/register/",

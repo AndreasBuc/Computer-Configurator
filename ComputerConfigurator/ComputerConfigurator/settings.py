@@ -52,6 +52,9 @@ INSTALLED_APPS = [
     'webpack_loader',
 
     'users',
+    'cpu',
+    'graphic_card',
+    'software',
 
     'configurator',
 ]
