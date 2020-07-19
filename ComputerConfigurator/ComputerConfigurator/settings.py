@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+
     'rest_framework',
     'rest_framework.authtoken',
 
@@ -154,10 +155,6 @@ AUTH_USER_MODEL = 'users.CustomUser'
 # This is for the nice looking forms
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "assets"),
-    os.path.join(BASE_DIR, "frontend/dist"),
-]
 
 # This is for the pagination of the single page
 SITE_ID = 1

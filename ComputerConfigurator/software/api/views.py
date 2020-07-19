@@ -7,10 +7,12 @@ from software.api.serializers import (All_Games_Serializer,
                                       All_Operating_System_IDs_Serializer)
 
 from rest_framework import viewsets
+from cpu.api.permissions import IsAdminCreatorOrReadOnly
 
 
 class All_Games_ViewSet(viewsets.ModelViewSet):
     serializer_class = All_Games_Serializer
+    permission_classes = [IsAdminCreatorOrReadOnly]
 
     def get_queryset(self):
         return Games.objects.all().order_by("-id")
@@ -20,6 +22,7 @@ class All_Games_ViewSet(viewsets.ModelViewSet):
 
 
 class All_Games_IDs_ViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAdminCreatorOrReadOnly]
     serializer_class = All_Games_IDs_Serializer
 
     def get_queryset(self):
@@ -27,6 +30,7 @@ class All_Games_IDs_ViewSet(viewsets.ModelViewSet):
 
 
 class All_OfficeWare_ViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAdminCreatorOrReadOnly]
     serializer_class = All_OfficeWare_Serializer
 
     def get_queryset(self):
@@ -37,6 +41,7 @@ class All_OfficeWare_ViewSet(viewsets.ModelViewSet):
 
 
 class All_OfficeWare_IDs_ViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAdminCreatorOrReadOnly]
     serializer_class = All_OfficeWare_IDs_Serializer
 
     def get_queryset(self):
@@ -44,6 +49,7 @@ class All_OfficeWare_IDs_ViewSet(viewsets.ModelViewSet):
 
 
 class All_Operating_System_ViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAdminCreatorOrReadOnly]
     serializer_class = All_Operating_System_Serializer
 
     def get_queryset(self):
@@ -54,6 +60,7 @@ class All_Operating_System_ViewSet(viewsets.ModelViewSet):
 
 
 class All_Operating_System_IDs_ViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAdminCreatorOrReadOnly]
     serializer_class = All_Operating_System_IDs_Serializer
 
     def get_queryset(self):

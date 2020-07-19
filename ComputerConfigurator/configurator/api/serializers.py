@@ -28,13 +28,13 @@ class All_Configurator_Serializer(serializers.ModelSerializer):
         model = Configurator
         fields = '__all__'
 
-        def get_officeware(self, instance):
-            officeware_serializer = All_OfficeWare_Serializer(instance.configurations, many=True)
-            return officeware_serializer.data
+    def get_officeware(self, instance):
+        officeware_serializer = All_OfficeWare_Serializer(instance.officewares, many=True)
+        return officeware_serializer.data
 
-        def get_games(self, instance):
-            games_serializer = All_Games_Serializer(instance.configurations, many=True)
-            return games_serializer.data
+    def get_games(self, instance):
+        games_serializer = All_Games_Serializer(instance.games, many=True)
+        return games_serializer.data
 
 
 class All_Configurator_IDs_Serializer(serializers.ModelSerializer):
@@ -47,48 +47,8 @@ class All_Configurator_IDs_Serializer(serializers.ModelSerializer):
 
     class Meta:
         model = Configurator
-        fields = ['id']
-
-    def get_games_ids(self, instance):
-        return [game.id for game in list(instance.games.all())]
-
-    def get_officeware_ids(self, instance):
-        return [officeware.id for officeware in list(instance.officewares.all())]
-
-
-class Users_Configurator_Serializer(serializers.ModelSerializer):
-    creator = serializers.StringRelatedField(read_only=True)
-    creator_id = serializers.PrimaryKeyRelatedField(read_only=True)
-    cpu = serializers.StringRelatedField()
-    graphic_card = serializers.StringRelatedField()
-    operating_system = serializers.StringRelatedField()
-    games = serializers.SerializerMethodField()
-    officeware = serializers.SerializerMethodField()
-
-    class Meta:
-        model = Configurator
-        fields = '__all__'
-
-    def get_games(self, instance):
-        games_serializer = All_Games_Serializer(instance.configurations, many=True)
-        return games_serializer.data
-
-    def get_officeware(self, instance):
-        officeware_serializer = All_OfficeWare_Serializer(instance.configurations, many=True)
-        return officeware_serializer.data
-
-
-class Users_Configurator_IDs_Serializer(serializers.ModelSerializer):
-    creator_id = serializers.PrimaryKeyRelatedField(read_only=True)
-    cpu_id = serializers.StringRelatedField()
-    graphic_card_id = serializers.StringRelatedField()
-    operating_system_id = serializers.StringRelatedField()
-    games_ids = serializers.SerializerMethodField()
-    officeware_ids = serializers.SerializerMethodField()
-
-    class Meta:
-        model = Configurator
-        fields = ['id']
+        fields = ['id', 'creator_id', 'cpu_id', 'graphic_card_id',
+                  'operating_system_id', 'games_ids', 'officeware_ids']
 
     def get_games_ids(self, instance):
         return [game.id for game in list(instance.games.all())]
