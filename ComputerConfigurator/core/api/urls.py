@@ -40,15 +40,15 @@ router.register('games',
                 basename='all-games')
 
 router.register('games-ids',
-                All_OfficeWare_ViewSet,
+                All_Games_IDs_ViewSet,
                 basename='all-games-ids')
 
 router.register('officewares',
-                All_OfficeWare_IDs_ViewSet,
+                All_OfficeWare_ViewSet,
                 basename='all-officewares')
 
 router.register('officewares-ids',
-                All_Games_IDs_ViewSet,
+                All_OfficeWare_IDs_ViewSet,
                 basename='all-officeware-ids')
 
 router.register('operating-systems',

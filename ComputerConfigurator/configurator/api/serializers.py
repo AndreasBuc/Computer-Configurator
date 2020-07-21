@@ -24,6 +24,8 @@ class All_Configurator_Serializer(serializers.ModelSerializer):
     games = serializers.SerializerMethodField()
     officeware = serializers.SerializerMethodField()
 
+    cost = serializers.IntegerField(read_only=True)
+
     class Meta:
         model = Configurator
         fields = '__all__'

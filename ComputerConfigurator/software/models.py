@@ -4,7 +4,7 @@ from django.conf import settings
 
 class Games(models.Model):
     name = models.CharField(max_length=256)
-    priece = models.PositiveIntegerField()
+    price = models.PositiveIntegerField()
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -19,7 +19,7 @@ class Games(models.Model):
 
 class OfficeWare(models.Model):
     name = models.CharField(max_length=256)
-    priece = models.PositiveIntegerField()
+    price = models.PositiveIntegerField()
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -34,7 +34,7 @@ class OfficeWare(models.Model):
 
 class Operating_System(models.Model):
     name = models.CharField(max_length=256)
-    priece = models.PositiveIntegerField()
+    price = models.PositiveIntegerField()
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

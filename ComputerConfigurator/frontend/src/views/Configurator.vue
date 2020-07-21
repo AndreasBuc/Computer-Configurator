@@ -1,21 +1,18 @@
 <template>
-  <div id="app" class="maxHeight">
-    <Navigation></Navigation>
-    <router-view class="container mt-3"/>
+  <div class="Configurator">
+    <p>testsq</p>
   </div>
 </template>
 
 <script>
-import Navigation from "@/components/Navigation"
-import {mapActions} from 'vuex';
-import {mapGetters} from 'vuex';
+// import  from "@/components/"
 export default {
-  name: 'App',
+  name: 'Configurator',
   props: {
 
   },
   components: {
-    Navigation,
+
   },
   data() {
     return {
@@ -23,18 +20,14 @@ export default {
     }
   },
   methods: {
-    ...mapActions({
-      setUser: 'setUser'
-    }),
+
   },
-  created() {
-    this.setUser();
-  },
-  computed: {
-    ...mapGetters([
-        'getUser'
-    ])
-  },
+  // created() {
+  //
+  // },
+  // computed: {
+  //
+  // },
   // destroyed() {
   //
   // },
@@ -60,9 +53,6 @@ export default {
 }
 </script>
 
-<style>
-a { cursor: pointer }
-.maxHeight {
-    height: 100%;
-}
+<style scoped>
+
 </style>

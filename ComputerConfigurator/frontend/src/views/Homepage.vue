@@ -1,21 +1,21 @@
 <template>
-  <div id="app" class="maxHeight">
-    <Navigation></Navigation>
-    <router-view class="container mt-3"/>
+  <div  class="Homepage centercontent d-flex justify-content-center">
+    <div class="justify-content-center">
+      <h1>Welcome to this page</h1>
+      <h4 class="lead">This Page is an example Page to configure your own PC</h4>
+    </div>
   </div>
 </template>
 
 <script>
-import Navigation from "@/components/Navigation"
-import {mapActions} from 'vuex';
-import {mapGetters} from 'vuex';
+// import  from "@/components/"
 export default {
-  name: 'App',
+  name: 'Homepage',
   props: {
 
   },
   components: {
-    Navigation,
+
   },
   data() {
     return {
@@ -23,18 +23,14 @@ export default {
     }
   },
   methods: {
-    ...mapActions({
-      setUser: 'setUser'
-    }),
+
   },
-  created() {
-    this.setUser();
-  },
-  computed: {
-    ...mapGetters([
-        'getUser'
-    ])
-  },
+  // created() {
+  //
+  // },
+  // computed: {
+  //
+  // },
   // destroyed() {
   //
   // },
@@ -60,9 +56,11 @@ export default {
 }
 </script>
 
-<style>
-a { cursor: pointer }
-.maxHeight {
-    height: 100%;
+<style scoped>
+.centercontent {
+  align-items: center;
+  height: 94.2%;
+  text-align: center;
 }
+
 </style>

@@ -2,6 +2,7 @@ from rest_framework import status, viewsets
 from rest_framework.views import APIView
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 
 from configurator.models import Configurator
 from configurator.api.serializers import (All_Configurator_Serializer,
@@ -12,7 +13,8 @@ from software.models import Games, OfficeWare
 
 class All_Configurator_Viewset(viewsets.ModelViewSet):
     serializer_class = All_Configurator_Serializer
-    permission_classes = [IsOwnerOrAdmin]
+    print('Checkpoint')
+    permission_classes = [IsAdminUser, IsAuthenticated]
 
     def get_queryset(self):
         return Configurator.objects.all().order_by("-id")
@@ -20,9 +22,21 @@ class All_Configurator_Viewset(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(creator=self.request.user)
 
+    def perform_update(self, serializer):
+        instance = serializer.save()
+        cost = 0
+        cost += instance.cpu.price
+        cost += instance.grafic_card.price
+        cost += instance.operating_system.price
+        for game in instance.games.all():
+            cost += game.price
+        for officeware in instance.officewares.all():
+            cost += officeware.price
+        serializer.save(cost=cost)
+
 
 class All_Configurator_Ids_Viewset(viewsets.ModelViewSet):
-    permission_classes = [IsOwnerOrAdmin]
+    permission_classes = [IsAdminUser]
     serializer_class = All_Configurator_IDs_Serializer
 
     def get_queryset(self):
@@ -31,7 +45,7 @@ class All_Configurator_Ids_Viewset(viewsets.ModelViewSet):
 
 class Users_Configurator_Viewset(viewsets.ModelViewSet):
     serializer_class = All_Configurator_Serializer
-    permission_classes = [IsOwnerOrAdmin]
+    permission_classes = [IsOwnerOrAdmin, IsAuthenticated]
 
     def get_queryset(self):
         return Configurator.objects.all().filter(creator_id=self.request.user.id).order_by("-id")
@@ -41,7 +55,7 @@ class Users_Configurator_Viewset(viewsets.ModelViewSet):
 
 
 class Users_Configurator_Ids_Viewset(viewsets.ModelViewSet):
-    permission_classes = [IsOwnerOrAdmin]
+    permission_classes = [IsOwnerOrAdmin, IsAuthenticated]
     serializer_class = All_Configurator_IDs_Serializer
 
     def get_queryset(self):
@@ -50,7 +64,7 @@ class Users_Configurator_Ids_Viewset(viewsets.ModelViewSet):
 
 class Users_Configurator_Add_Remove_Game_APIView(APIView):
     serializer_class = All_Configurator_Serializer
-    permission_classes = [IsOwnerOrAdmin]
+    permission_classes = [IsOwnerOrAdmin, IsAuthenticated]
 
     def get_queryset(self):
         return Configurator.objects.all().filter(owner_id=self.request.user.id).order_by("name")
@@ -87,7 +101,7 @@ class Users_Configurator_Add_Remove_Game_APIView(APIView):
 
 class Users_Configurator_Add_Remove_OfficeWare_APIView(APIView):
     serializer_class = All_Configurator_Serializer
-    permission_classes = [IsOwnerOrAdmin]
+    permission_classes = [IsOwnerOrAdmin, IsAuthenticated]
 
     def get_queryset(self):
         return Configurator.objects.all().filter(owner_id=self.request.user.id).order_by("name")

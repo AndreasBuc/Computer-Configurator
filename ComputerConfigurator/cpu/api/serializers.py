@@ -11,7 +11,7 @@ class CPUSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def get_name(self, instance):
-        return f'{instance.manufacturer} {instance.model}, {instance.kernel}x {instance.speed} GHz'
+        return f'{instance.manufacturer} {instance.model}'
 
 
 class CPU_IDs_Serializer(serializers.ModelSerializer):

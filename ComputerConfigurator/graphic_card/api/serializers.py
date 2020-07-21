@@ -11,7 +11,7 @@ class Graphic_CardSerializers(serializers.ModelSerializer):
         fields = '__all__'
 
     def get_name(self, instance):
-        return f'{instance.manufacturer} {instance.model}, {instance.memory_size}'
+        return f'{instance.manufacturer} {instance.model}'
 
 
 class Graphic_Card_IDS_Serializers(serializers.ModelSerializer):
