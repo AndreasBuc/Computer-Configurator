@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="maxHeight">
     <Navigation></Navigation>
-    <router-view class="container mt-3"/>
+    <router-view />
   </div>
 </template>
 

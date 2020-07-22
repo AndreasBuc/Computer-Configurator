@@ -1,31 +1,33 @@
 <template>
   <div class="Components">
-    <h1
+    <div class="container ml-5">
+      <h1
+        class="mb-3"
+        data-toggle="collapse"
+        data-target="#Hardware"
+        aria-expanded="true"
+        aria-controls="Hardware"
+        style="cursor:pointer"
+      >Hardware</h1>
+      <div class="collapse show" id="Hardware">
+      <CPUs></CPUs>
+      <GraphicCards></GraphicCards>
+      </div>
+      <h1
       class="mb-3"
       data-toggle="collapse"
-      data-target="#Hardware"
+      data-target="#Software"
       aria-expanded="true"
-      aria-controls="Hardware"
+      aria-controls="Software"
       style="cursor:pointer"
-    >Hardware</h1>
-    <div class="collapse show" id="Hardware">
-    <CPUs></CPUs>
-    <GraphicCards></GraphicCards>
+      >Software</h1>
+      <div class="collapse show" id="Software">
+      <Games></Games>
+      <OperatingSystems></OperatingSystems>
+      <OfficeWares></OfficeWares>
+      </div>
+        </div>
     </div>
-    <h1
-    class="mb-3"
-    data-toggle="collapse"
-    data-target="#Software"
-    aria-expanded="true"
-    aria-controls="Software"
-    style="cursor:pointer"
-    >Software</h1>
-    <div class="collapse show" id="Software">
-    <Games></Games>
-    <OperatingSystems></OperatingSystems>
-    <OfficeWares></OfficeWares>
-    </div>
-  </div>
 </template>
 
 <script>
