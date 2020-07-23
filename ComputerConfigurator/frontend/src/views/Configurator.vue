@@ -1,77 +1,108 @@
 <template>
-  <div class="Configurator">
-    <div class="row">
-      <!-- SIDEBAR -->
-      <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-        <div class="sidebar-sticky pt-3">
-          <ul class="nav flex-column">
-            <li class="nav-item">
-              <a
-                class="nav-link active"
-                data-toggle="collapse"
-                data-target="#Games"
-                aria-expanded="true"
-                aria-controls="Games"
-                style="cursor:pointer"
-              >
-                 <div class="orange"><i class="fa fa-gamepad" aria-hidden="true"></i> Games</div>
-              </a>
-            </li>
-          </ul>
+<div class="Configurator">
+  <div class="row">
+    <!-- SIDEBAR -->
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="sidebar-sticky pt-3">
+        <ul class="nav flex-column">
 
-          <div id="Games">
-            <ul class="nav flex-column" >
-              <!-- START DRAG SIDEBAR -->
-              <draggable
-                class="dragArea list-group"
-                :list="games"
-                :group="{ name: 'people', pull: 'clone', put: false }"
-                @change="log"
-              >
-              <div
-                  class=" "
-                  v-for="(game, index) in gamesRemaining"
-                  :key="index"
-                  >
+          <!-- START SOFTWARE -->
+          <li class="nav-item">
+            <div class="nav-link active">
+              <h3> Software</h3>
+            </div>
+          </li>
+        </ul>
+
+        <!-- START GAMES -->
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active collapse Software" data-toggle="collapse" data-target=".Games" aria-expanded="true" aria-controls="Games" style="cursor:pointer">
+              <div class="orange"><i class="fa fa-gamepad mr-1" aria-hidden="true"></i> Games</div>
+            </a>
+          </li>
+        </ul>
+
+        <div class="Games">
+          <ul class="nav flex-column">
+            <!-- START DRAG SIDEBAR -->
+            <draggable class="dragArea list-group" :list="games" :group="{ name: 'games', pull: 'clone', put: false }" @change="log">
+              <div class=" " v-for="(game, index) in gamesRemaining" :key="index">
                 <a class="nav-link active">
-                   <small class="anotherorange">{{game.name}}</small>
+                  <small class="anotherorange">{{game.name}}</small>
                 </a>
               </div>
-              </draggable>
-              <!-- END DRAG SIDEBAR -->
+            </draggable>
+            <!-- END DRAG SIDEBAR -->
 
-            </ul>
-          </div>
+          </ul>
         </div>
-      </nav>
-      <!-- CONFIGURATOR -->
-      <div class="col-md-9 ml-sm-auto col-lg-10 px-md-4 center-text">
-        <h1>Configurator</h1>
-        <h5 class="lead">Total Cost: {{cost}} €</h5>
-        <hr>
-        <!-- START DRAG CONFIGURATOR -->
-        <draggable
-          v-if="gamesIn"
-          class="dragArea list-group"
-          v-model="gamesIn"
-          @change="log"
-          group="people"
-        >
+        <!-- END GAMES -->
+
+        <!-- START OFFICEWARE -->
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active collapse Software" data-toggle="collapse" data-target=".OfficeWare" aria-expanded="true" aria-controls="OfficeWare" style="cursor:pointer">
+              <div class="orange"><i class="fa fa-file mr-1" aria-hidden="true"></i> OfficeWare</div>
+            </a>
+          </li>
+        </ul>
+
+        <div class="OfficeWare">
+          <ul class="nav flex-column">
+            <!-- START DRAG SIDEBAR -->
+            <draggable class="dragArea list-group" :list="officewares" :group="{ name: 'officewares', pull: 'clone', put: false }" @change="log">
+              <div class=" " v-for="(officeware, index) in officewaresRemaining" :key="index">
+                <a class="nav-link active">
+                  <small class="anotherorange">{{officeware.name}}</small>
+                </a>
+              </div>
+            </draggable>
+            <!-- END DRAG SIDEBAR -->
+
+          </ul>
+        </div>
+        <!-- END OFFICEWARE -->
+        <!-- END SOFTWARE -->
+        <!-- END SIDEBAR -->
+
+      </div>
+    </nav>
+    <!-- CONFIGURATOR -->
+    <div class="col-md-9 ml-sm-auto col-lg-10 px-md-4 center-text">
+      <h1>Configurator</h1>
+      <h5 class="lead">Total Cost: {{cost}} €</h5>
+      <hr>
+      <!-- START DRAG CONFIGURATOR -->
+      <h3 class="mt-2">Games</h3>
+      <div class="Games">
+        <draggable v-if="gamesIn" class="dragArea list-group" v-model="gamesIn" @change="onGameDrop" group="games">
           <div class="list-group-item" v-for="(element, idx) in gamesIn" :key="element.id">
             {{ element.name }} ({{element.price}} €)
             <i class="fa fa-times close" @click="removeClonedAt(idx)"></i>
           </div>
         </draggable>
-        <!-- END DRAG CONFIGURATOR -->
       </div>
+      <h3 class="mt-4">office Wares</h3>
+      <div class="Office Ware">
+        <draggable v-if="officewaresIn" class="dragArea list-group" v-model="officewaresIn" @change="onOfficeWareDrop" group="officewares">
+          <div class="list-group-item" v-for="(element, idx) in officewaresIn" :key="element.id">
+            {{ element.name }} ({{element.price}} €)
+            <i class="fa fa-times close" @click="removeClonedOfficewaresInAt(idx)"></i>
+          </div>
+        </draggable>
+      </div>
+      <!-- END DRAG CONFIGURATOR -->
     </div>
   </div>
+</div>
 </template>
 
 <script>
 // import  from "@/components/"
 import draggable from "vuedraggable";
-import axios from "axios";
+import { gamesMixin } from "@/components/Software/Mixins/gamesMixins.js"
+import { officewaresMixin } from "@/components/Software/Mixins/officewaresMixins.js"
 export default {
   name: 'Configurator',
   props: {
@@ -80,61 +111,13 @@ export default {
   components: {
     draggable,
   },
+  mixins: [gamesMixin, officewaresMixin],
   data() {
     return {
-      games: [],
-      gamesIn: [],
       configurator_id: 1,
     }
   },
   methods: {
-    async getGames() {
-      try {
-        const response = await axios.get('games/');
-        this.games=response.data;
-      } catch (error) {
-        console.error(error);
-      }
-    },
-    async getGamesIn() {
-      try {
-        const response = await axios.get(`users-configurator/${this.configurator_id}/`);
-        this.gamesIn =response.data.games;
-      } catch (error) {
-        console.error(error);
-      }
-    },
-    log(evt) {
-      window.console.log(evt.added.element.id);
-      this.addGame(evt.added.element.id)
-    },
-    removeClonedAt(idx) {
-      console.log(this.gamesIn[idx].id);
-      this.removeGame(this.gamesIn[idx].id)
-      this.games.unshift(this.gamesIn[idx])
-
-      this.gamesIn.splice(idx, 1);
-    },
-    async addGame(game_id) {
-      try {
-        const response = await axios.post(`add-or-remove-a-game/${game_id}/${this.configurator_id}/`, {});
-        console.log(response);
-      } catch (error) {
-        console.error(error);
-      }
-    },
-    async removeGame(game_id) {
-      try {
-        const response = await axios.delete(`add-or-remove-a-game/${game_id}/${this.configurator_id}/`);
-        console.log(response);
-      } catch (error) {
-        console.error(error);
-      }
-    },
-  },
-  created() {
-    this.getGamesIn();
-    this.getGames();
 
   },
   computed: {
@@ -144,17 +127,6 @@ export default {
         sum += game.price;
       }
       return sum
-    },
-    gamesRemaining() {
-
-      this.gamesIn.forEach( ( gameIn ) => {
-        this.games.forEach( (game, index) => {
-            if(gameIn.id == game.id) {
-              this.games.splice(index,1);
-            }
-        });
-      });
-      return this.games
     },
   },
   // destroyed() {
@@ -186,23 +158,28 @@ export default {
 .Configurator {
   height: 100%
 }
+
 nav {
   height: 100%
 }
+
 .row {
   height: 100%
 }
-.center-text{
+
+.center-text {
   text-align: center;
 }
-.orange:hover{
+
+.orange:hover {
   color: rgb(182, 114, 56)
 }
-.anotherorange:hover{
+
+.anotherorange:hover {
   color: rgb(241, 165, 100)
 }
-i {
-  cursor:pointer;
-}
 
+i {
+  cursor: pointer;
+}
 </style>
