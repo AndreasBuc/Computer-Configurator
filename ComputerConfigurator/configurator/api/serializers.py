@@ -8,7 +8,7 @@ from software.api.serializers import (All_Games_Serializer,
                                       # All_Games_IDs_Serializer,
                                       All_OfficeWare_Serializer,
                                       # All_OfficeWare_IDs_Serializer,
-                                      # All_Operating_System_Serializer,
+                                      All_Operating_System_Serializer,
                                       # All_Operating_System_IDs_Serializer
                                       )
 
@@ -17,9 +17,9 @@ class All_Configurator_Serializer(serializers.ModelSerializer):
     creator = serializers.StringRelatedField(read_only=True)
     creator_id = serializers.PrimaryKeyRelatedField(read_only=True)
 
-    cpu = serializers.StringRelatedField()
-    graphic_card = serializers.StringRelatedField()
-    operating_system = serializers.StringRelatedField()
+    # cpu = serializers.StringRelatedField()
+    # graphic_card = serializers.StringRelatedField()
+    operating_system_detail = serializers.SerializerMethodField()
 
     games = serializers.SerializerMethodField()
     officeware = serializers.SerializerMethodField()
@@ -29,6 +29,11 @@ class All_Configurator_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Configurator
         fields = '__all__'
+
+    def get_operating_system_detail(self, instance):
+        operating_system_serializer = All_Operating_System_Serializer(
+            instance.operating_system)
+        return operating_system_serializer.data
 
     def get_officeware(self, instance):
         officeware_serializer = All_OfficeWare_Serializer(instance.officewares, many=True)

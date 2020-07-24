@@ -5,6 +5,7 @@ export const gamesMixin = {
     return {
       games: [],
       gamesIn: [],
+      gameDrag: false,
     }
   },
   methods: {
