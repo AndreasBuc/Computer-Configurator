@@ -400,7 +400,8 @@ export default {
     this.resetGamesData();
     this.resetOfficeWareData();
     this.resetOperatingSystemsData();
-    this.resetCpusData()()
+    this.resetCpusData();
+    this.resetgraphicCardsData();
     //
   next();
   },
