@@ -52,6 +52,13 @@ export const gamesMixin = {
         console.error(error);
       }
     },
+    resetGamesData() {
+      this.games= [];
+      this.gamesIn= [];
+      this.gameDrag= false;
+      this.getGamesIn();
+      this.getGames();
+    }
   },
   created() {
     this.getGamesIn();

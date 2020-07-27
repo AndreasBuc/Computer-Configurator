@@ -1,9 +1,11 @@
 from rest_framework import serializers
 from configurator.models import Configurator
-# from cpu.api.serializers import (CPUSerializer,
-#                                  CPU_IDs_Serializer)
-# from graphic_card.api.serializers import (Graphic_CardSerializers,
-#                                           Graphic_Card_IDS_Serializers)
+from cpu.api.serializers import (CPUSerializer,
+                                 # CPU_IDs_Serializer
+                                 )
+from graphic_card.api.serializers import (Graphic_CardSerializers,
+                                          # Graphic_Card_IDS_Serializers
+                                          )
 from software.api.serializers import (All_Games_Serializer,
                                       # All_Games_IDs_Serializer,
                                       All_OfficeWare_Serializer,
@@ -20,6 +22,8 @@ class All_Configurator_Serializer(serializers.ModelSerializer):
     # cpu = serializers.StringRelatedField()
     # graphic_card = serializers.StringRelatedField()
     operating_system_detail = serializers.SerializerMethodField()
+    cpu_detail = serializers.SerializerMethodField()
+    graphic_cards_detail = serializers.SerializerMethodField()
 
     games = serializers.SerializerMethodField()
     officeware = serializers.SerializerMethodField()
@@ -34,6 +38,16 @@ class All_Configurator_Serializer(serializers.ModelSerializer):
         operating_system_serializer = All_Operating_System_Serializer(
             instance.operating_system)
         return operating_system_serializer.data
+
+    def get_cpu_detail(self, instance):
+        cpu_serializer = CPUSerializer(
+            instance.cpu)
+        return cpu_serializer.data
+
+    def get_graphic_cards_detail(self, instance):
+        grafic_card_serializer = Graphic_CardSerializers(
+            instance.grafic_card)
+        return grafic_card_serializer.data
 
     def get_officeware(self, instance):
         officeware_serializer = All_OfficeWare_Serializer(instance.officewares, many=True)

@@ -13,11 +13,20 @@
     <div class="collapse navbar-collapse container" id="navbarSupportedContent">
 
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <router-link class="nav-link active" :to="{name: 'Configurator'}">
-            Configurator
-          </router-link>
+
+        <li class="nav-item dropdown active">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Configurations
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" v-for="config in configs" :key="config.id">
+              <router-link class="nav-link active" :to="{name: 'Configurator', params: {configId: config.id, name: config.name}}">
+                {{config.name}}
+              </router-link>
+            </a>
+          </div>
         </li>
+
         <li class="nav-item active">
           <router-link class="nav-link active" :to="{name: 'Component'}">
             Component Shop
@@ -68,8 +77,7 @@ export default {
     },
     async getConfigs() {
       try {
-        const response = await axios.get('/users-configurator-basics');
-        console.log(response);
+        const response = await axios.get('users-configurator-basics/');
         this.configs = response.data;
       } catch (error) {
         console.error(error);

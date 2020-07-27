@@ -51,6 +51,12 @@ export const officewaresMixin = {
         console.error(error);
       }
     },
+    resetOfficeWareData() {
+      this.officewares= [];
+      this.officewaresIn= [];
+      this.getOfficewaresIn();
+      this.getOfficewares();
+    }
   },
   created() {
     this.getOfficewaresIn();

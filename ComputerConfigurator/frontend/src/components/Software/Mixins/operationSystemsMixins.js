@@ -56,6 +56,11 @@ export const operationSystemsMixin = {
       } catch (error) {
         console.error(error);
       }
+    },
+    resetOperatingSystemsData() {
+      this.operationSystems= [];
+      this.operationSystemsIn= [];
+      this.getOperatinSystems();
     }
   },
   created() {

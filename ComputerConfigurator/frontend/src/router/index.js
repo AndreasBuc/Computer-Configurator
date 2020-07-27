@@ -12,7 +12,7 @@ const routes = [
     component: Homepage
   },
   {
-    path: '/Configurator/',
+    path: '/Configurator/:configId/:name',
     name: 'Configurator',
     component: Configurator,
     props: true
