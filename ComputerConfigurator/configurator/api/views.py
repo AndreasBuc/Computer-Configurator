@@ -6,7 +6,8 @@ from rest_framework.permissions import IsAdminUser, IsAuthenticated
 
 from configurator.models import Configurator
 from configurator.api.serializers import (All_Configurator_Serializer,
-                                          All_Configurator_IDs_Serializer)
+                                          All_Configurator_IDs_Serializer,
+                                          Configurator_Basicss_Serializer)
 from configurator.api.permissions import IsOwnerOrAdmin
 from software.models import Games, OfficeWare
 
@@ -62,12 +63,36 @@ class Users_Configurator_Ids_Viewset(viewsets.ModelViewSet):
         return Configurator.objects.all().filter(creator_id=self.request.user.id).order_by("-id")
 
 
+class Users_Configurator_Basics_Viewset(viewsets.ModelViewSet):
+    permission_classes = [IsOwnerOrAdmin, IsAuthenticated]
+    serializer_class = Configurator_Basicss_Serializer
+
+    def get_queryset(self):
+        return Configurator.objects.all().filter(creator_id=self.request.user.id).order_by("name")
+
+    def create(self, request):
+        return Response({"message": "This action is not allowed"},
+                        status=status.HTTP_403_FORBIDDEN)
+
+    def update(self, request, pk=None):
+        return Response({"message": "This action is not allowed"},
+                        status=status.HTTP_403_FORBIDDEN)
+
+    def partial_update(self, request, pk=None):
+        return Response({"message": "This action is not allowed"},
+                        status=status.HTTP_403_FORBIDDEN)
+
+    def destroy(self, request, pk=None):
+        return Response({"message": "This action is not allowed"},
+                        status=status.HTTP_403_FORBIDDEN)
+
+
 class Users_Configurator_Add_Remove_Game_APIView(APIView):
     serializer_class = All_Configurator_Serializer
     permission_classes = [IsOwnerOrAdmin, IsAuthenticated]
 
     def get_queryset(self):
-        return Configurator.objects.all().filter(owner_id=self.request.user.id).order_by("name")
+        return Configurator.objects.all().filter(creator_id=self.request.user.id).order_by("name")
 
     def delete(self, request, g_pk, c_pk):
         """Remove this Game from Configurator"""

@@ -55,7 +55,7 @@ export default {
   },
   data() {
     return {
-
+      configs: [],
     }
   },
   methods: {
@@ -65,11 +65,20 @@ export default {
     logout() {
       axios.post('rest-auth/logout/', {});
       this.unsetUser();
+    },
+    async getConfigs() {
+      try {
+        const response = await axios.get('/users-configurator-basics');
+        console.log(response);
+        this.configs = response.data;
+      } catch (error) {
+        console.error(error);
+      }
     }
   },
-  // created() {
-  //
-  // },
+  created() {
+    this.getConfigs();
+  },
   computed: {
     ...mapGetters([
       'getUser',

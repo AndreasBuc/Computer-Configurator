@@ -14,6 +14,7 @@ from configurator.api.views import (All_Configurator_Viewset,
                                     All_Configurator_Ids_Viewset,
                                     Users_Configurator_Viewset,
                                     Users_Configurator_Ids_Viewset,
+                                    Users_Configurator_Basics_Viewset,
                                     Users_Configurator_Add_Remove_Game_APIView,
                                     Users_Configurator_Add_Remove_OfficeWare_APIView
                                     )
@@ -70,6 +71,10 @@ router.register('configurator-ids',
 router.register('users-configurator',
                 Users_Configurator_Viewset,
                 basename='users-configurator')
+
+router.register('users-configurator-basics',
+                Users_Configurator_Basics_Viewset,
+                basename='users-configurator-basics')
 
 router.register('user-configurator-ids',
                 Users_Configurator_Ids_Viewset,

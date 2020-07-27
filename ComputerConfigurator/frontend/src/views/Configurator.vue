@@ -213,7 +213,7 @@ import { operationSystemsMixin } from "@/components/Software/Mixins/operationSys
 export default {
   name: 'Configurator',
   props: {
-
+    
   },
   components: {
     draggable,

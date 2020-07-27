@@ -12,9 +12,10 @@ const routes = [
     component: Homepage
   },
   {
-    path: '/Configurator',
+    path: '/Configurator/',
     name: 'Configurator',
-    component: Configurator
+    component: Configurator,
+    props: true
   },
   {
     path: '/Components',

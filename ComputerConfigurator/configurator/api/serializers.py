@@ -44,6 +44,12 @@ class All_Configurator_Serializer(serializers.ModelSerializer):
         return games_serializer.data
 
 
+class Configurator_Basicss_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = Configurator
+        fields = ['id', 'name']
+
+
 class All_Configurator_IDs_Serializer(serializers.ModelSerializer):
     creator_id = serializers.PrimaryKeyRelatedField(read_only=True)
     cpu_id = serializers.PrimaryKeyRelatedField(read_only=True)
