@@ -9,6 +9,7 @@ class All_Games_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Games
         fields = '__all__'
+        read_only_fields = ['image']
 
 
 class All_Games_IDs_Serializer(serializers.ModelSerializer):
@@ -46,3 +47,12 @@ class All_Operating_System_IDs_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Operating_System
         fields = ['id']
+
+
+class GamesImageSerializer(serializers.ModelSerializer):
+    """Serializer for uploading images to games"""
+
+    class Meta:
+        model = Games
+        fields = ('id', 'image')
+        read_only_fields = ('id',)

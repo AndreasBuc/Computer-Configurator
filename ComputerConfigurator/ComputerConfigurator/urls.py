@@ -21,6 +21,10 @@ from django_registration.backends.one_step.views import RegistrationView
 from users.forms import CustomUserForm
 from core.views import IndexTemplateView
 
+# Images
+from django.conf.urls.static import static
+from django.conf import settings
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('core.api.urls')),
@@ -49,5 +53,7 @@ urlpatterns = [
     # Registration via Rest-API
     path("api/rest-auth/registration/", include("rest_auth.registration.urls")),
 
-    re_path(r"^.*$", IndexTemplateView.as_view(), name="entry-point"),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += [re_path(r'^.*$', IndexTemplateView.as_view(), name='entry-point')]

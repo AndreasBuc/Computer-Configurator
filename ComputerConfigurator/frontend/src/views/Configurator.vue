@@ -25,7 +25,7 @@
                   @change="log">
                 <div v-for="(cpu, index) in remainingCpus" :key="index">
                   <a class="nav-link active">
-                    <small class="anotherorange">{{cpu.name}}</small>
+                    <small class="anotherorange">{{cpu.name}} ({{cpu.price}} €)</small>
                   </a>
                 </div>
               </draggable>
@@ -52,7 +52,7 @@
                   @change="log">
                 <div v-for="(graphicCard, index) in remaininggraphicCards" :key="index">
                   <a class="nav-link active">
-                    <small class="anotherorange">{{graphicCard.name}}</small>
+                    <small class="anotherorange">{{graphicCard.name}} ({{graphicCard.price}}</small>
                   </a>
                 </div>
               </draggable>
@@ -88,7 +88,7 @@
                   >
               <div class=" " v-for="(game, index) in gamesRemaining" :key="index">
                 <a class="nav-link active">
-                  <small class="anotherorange">{{game.name}}</small>
+                  <small class="anotherorange">{{game.name}} ({{game.price}} €)</small>
                 </a>
               </div>
             </draggable>
@@ -117,7 +117,7 @@
                 @change="log">
               <div class=" " v-for="(officeware, index) in officewaresRemaining" :key="index">
                 <a class="nav-link active">
-                  <small class="anotherorange">{{officeware.name}}</small>
+                  <small class="anotherorange">{{officeware.name}} ({{officeware.price}} €)</small>
                 </a>
               </div>
             </draggable>
@@ -145,7 +145,7 @@
                 @change="log">
               <div v-for="(operationSystem, index) in remainingOperationSystems" :key="index">
                 <a class="nav-link active">
-                  <small class="anotherorange">{{operationSystem.name}}</small>
+                  <small class="anotherorange">{{operationSystem.name}} ({{operationSystem.price}} €)</small>
                 </a>
               </div>
             </draggable>
