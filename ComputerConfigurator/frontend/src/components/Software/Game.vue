@@ -31,7 +31,6 @@ export default {
     async getGame() {
       try {
         const response = await axios.get(`games/${this.id}/`);
-        console.log(response);
         this.game=response.data;
       } catch (error) {
         console.error(error);

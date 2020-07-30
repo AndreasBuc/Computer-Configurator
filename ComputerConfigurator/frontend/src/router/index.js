@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Configurator from "@/views/Configurator";
 import Component from "@/views/Components";
 import Homepage from "@/views/Homepage";
+
 Vue.use(VueRouter);
 
 const routes = [

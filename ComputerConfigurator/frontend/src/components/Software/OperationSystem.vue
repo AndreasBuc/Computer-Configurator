@@ -27,7 +27,6 @@ export default {
     async getOperatingSystem() {
       try {
         const response = await axios.get(`operating-systems/${this.id}/`);
-        console.log(response);
         this.operatingSystem=response.data;
       } catch (error) {
         console.error(error);

@@ -19,11 +19,18 @@
             Configurations
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" v-for="config in configs" :key="config.id">
-              <router-link class="nav-link active" :to="{name: 'Configurator', params: {configId: config.id, name: config.name}}">
-                {{config.name}}
-              </router-link>
-            </a>
+            <div v-if="getConf" >
+              <a class="dropdown-item" v-for="config in getConf" :key="config.id">
+                <router-link class="nav-link active" :to="{name: 'Configurator', params: {configId: config.id, name: config.name}}">
+                  {{config.name}}
+                </router-link>
+              </a>
+            </div>
+            <hr>
+            <div class="d-flex flex-row">
+              <input v-model="newConfig" class="form-control ml-2" style="width:80%" :placeholder="placeholder" type="text" name="" value="">
+              <i class="fa fa-plus-square-o fa-lg my-auto mx-auto orange" style="cursor:pointer" @click="addnewConfig"></i>
+            </div>
           </div>
         </li>
 
@@ -65,6 +72,8 @@ export default {
   data() {
     return {
       configs: [],
+      newConfig: "",
+      placeholder: 'new config'
     }
   },
   methods: {
@@ -82,6 +91,23 @@ export default {
       } catch (error) {
         console.error(error);
       }
+    },
+    async addnewConfig() {
+      if (this.newConfig) {
+        try {
+          const response = await axios.post('users-configurator-basics/', {'name': this.newConfig});
+          this.newConfig = "";
+          this.getConfigs();
+          this.$router.push({
+            name: 'Configurator',
+            params: {
+              configId: response.data.id,
+              name: response.data.name
+            }})
+        } catch (error) {
+          console.error(error);
+        }
+      }
     }
   },
   created() {
@@ -90,6 +116,7 @@ export default {
   computed: {
     ...mapGetters([
       'getUser',
+      'getConf',
     ])
   },
   // destroyed() {
@@ -118,5 +145,7 @@ export default {
 </script>
 
 <style scoped>
-
+.orange:hover {
+  color: rgb(182, 114, 56)
+}
 </style>

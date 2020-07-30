@@ -1,36 +1,58 @@
-<div class="Cpu">
-  <ul class="nav flex-column">
-    <!-- START DRAG SIDEBAR -->
-    <draggable
-        :list="cpus"
-        class="dragArea list-group"
-        :group="{ name: 'CpusGroup', pull: 'clone', put: false }"
-        @change="log">
-      <div v-for="(cpu, index) in remainingCpus" :key="index">
-        <a class="nav-link active">
-          <small class="anotherorange">{{cpu.name}}</small>
-        </a>
-      </div>
-    </draggable>
-    <!-- END DRAG SIDEBAR -->
-  </ul>
-</div>
-<!-- END CPU -->
+<template>
+  <div class="Test">
 
-<div class="Cpu">
-  <ul class="nav flex-column">
-    <!-- START DRAGDEBAR -->
-    <draggable
-        :list="cpus"
-        class="dragArea list-group"
-        :group="{ name: 'CpusGroup', pull: 'clone', put: false }"
-        @change="log">
-      <div v-for="(cpu, index) in remainingCpus" :key="index">
-        <a class="nav-link active">
-          <small class="anotherorange">{{cpu.name}}</small>
-        </a>
-      </div>
-    </draggable>
-    <!-- END DRAG SIDEBAR -->
-  </ul>
-</div>
+  </div>
+</template>
+
+<script>
+// import  from "@/components/"
+export default {
+  name: 'Test',
+  props: {
+
+  },
+  components: {
+
+  },
+  data() {
+    return {
+
+    }
+  },
+  methods: {
+
+  },
+  // created() {
+  //
+  // },
+  // computed: {
+  //
+  // },
+  // destroyed() {
+  //
+  // },
+  // deactivated() {
+  //
+  // },
+  // activated() {
+  //
+  // },
+  // beforeRouteEnter(to, from, next) {
+  //
+  //   return next(vm => {
+  //
+  //     });
+  //   next();
+  // },
+  // beforeRouteUpdate (to, from, next) {
+  // next();
+  // },
+  // beforeRouteLeave (to, from, next) {
+  // next();
+  // }
+}
+</script>
+
+<style scoped>
+
+</style>

@@ -41,7 +41,6 @@ export default {
     async getOfficeWares() {
       try {
         const response = await axios.get('officewares-ids/');
-        console.log(response);
         this.officewares=response.data;
       } catch (error) {
         console.error(error);

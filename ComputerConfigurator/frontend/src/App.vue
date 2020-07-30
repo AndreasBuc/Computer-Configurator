@@ -24,15 +24,18 @@ export default {
   },
   methods: {
     ...mapActions({
-      setUser: 'setUser'
+      setUser: 'setUser',
+      setConf: 'setConf',
     }),
   },
   created() {
     this.setUser();
+    this.setConf();
   },
   computed: {
     ...mapGetters([
-        'getUser'
+        'getUser',
+        'getConf',
     ])
   },
   // destroyed() {

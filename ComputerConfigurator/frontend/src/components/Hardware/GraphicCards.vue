@@ -8,6 +8,7 @@ Hardware/<template>
         <th scope="col">Name</th>
         <th scope="col">Memory Size [GB]</th>
         <th scope="col">Price [€]</th>
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
@@ -43,7 +44,6 @@ export default {
     async getGC() {
       try {
         const response = await axios.get('graphic-cards-ids/');
-        console.log(response);
         this.graphic_cards=response.data;
       } catch (error) {
         console.error(error);

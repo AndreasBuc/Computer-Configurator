@@ -9,6 +9,7 @@
       <th scope="col">Kernel</th>
       <th scope="col">Speed [GHz]</th>
       <th scope="col">Price [€]</th>
+      <th scope="col"></th>
     </tr>
     <CPU
       v-for="(cpu, index) in cpus"
@@ -48,7 +49,6 @@ export default {
     async getCPUs() {
       try {
         const response = await axios.get('cpu-ids/');
-        console.log(response);
         this.cpus=response.data;
       } catch (error) {
         console.error(error);

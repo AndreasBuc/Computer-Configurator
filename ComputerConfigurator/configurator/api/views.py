@@ -70,9 +70,8 @@ class Users_Configurator_Basics_Viewset(viewsets.ModelViewSet):
     def get_queryset(self):
         return Configurator.objects.all().filter(creator_id=self.request.user.id).order_by("name")
 
-    def create(self, request):
-        return Response({"message": "This action is not allowed"},
-                        status=status.HTTP_403_FORBIDDEN)
+    def perform_create(self, serializer):
+        serializer.save(creator=self.request.user)
 
     def update(self, request, pk=None):
         return Response({"message": "This action is not allowed"},

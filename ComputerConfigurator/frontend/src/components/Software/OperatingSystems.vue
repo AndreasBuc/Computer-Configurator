@@ -41,7 +41,6 @@ export default {
     async getOperatingSystems() {
       try {
         const response = await axios.get('operating-systems-ids/');
-        console.log(response);
         this.operatingSystems=response.data;
       } catch (error) {
         console.error(error);

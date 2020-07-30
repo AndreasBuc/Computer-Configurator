@@ -34,7 +34,7 @@ class All_Games_ViewSet(viewsets.ModelViewSet):
         if request.data["image"] == "":
             return Response({'message': 'You put no Image'}, status=status.HTTP_400_BAD_REQUEST)
 
-        if str(request.data["image"]).split('.')[-1] not in 'jpg png bmp'.split():
+        if str(request.data["image"]).split('.')[-1].lower() not in 'jpg png bmp'.split():
             return Response({'message': 'The file is no Image, only accept jpg, png and bmp'}, status=status.HTTP_400_BAD_REQUEST)
         game = self.get_object()
         serializer = self.get_serializer(

@@ -52,6 +52,9 @@ export const gamesMixin = {
         console.error(error);
       }
     },
+    backImage(game) {
+      return `background-image: url("${game.image}");`;
+    },
     resetGamesData() {
       this.games= [];
       this.gamesIn= [];

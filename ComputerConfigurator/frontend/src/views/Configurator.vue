@@ -159,25 +159,37 @@
 
       </div>
     </nav>
-    <!-- CONFIGURATOR -->
+    <!-- CONFIGURATOR -------------------------------------------------------- -->
 
-    <div class="col-md-9 ml-sm-auto col-lg-10 px-md-4 center-text">
-      <h1>{{name}}</h1>
-      <h3 class="lead">Total Cost: {{cost}} €</h3>
+    <div class="col-md-9 ml-sm-auto col-lg-10 my-2 px-md-4 center-text">
+      <div>
+        <div class="row">
+          <div class="col-4 my-auto"><h3 class="lead ">Total Cost: {{cost}} €</h3></div>
+          <div class="col-4"><h1>{{name}}</h1></div>
+          <div class="col-4 my-auto d-flex justify-content-center fa-lg" data-toggle="modal" data-target="#Configmodel"><i class="fa fa-times close"></i></div>
+        </div>
 
-      <div class="container">
-        <ul class="d-flex justify-content-between ">
-          <p class="nav-item active">Software: </p>
-          <p class="nav-item active">Games: {{costGames}} €</p>
-          <p class="nav-item active">Office Ware: {{costOfficeWare}} €</p>
-          <p class="nav-item active">Operating System: {{costoperationSystems}} €</p>
-        </ul>
-        <ul class="d-flex justify-content-between ">
-          <p class="nav-item active">Hardware: </p>
-          <p class="nav-item active">CPU: {{costCPU}} €</p>
-          <p class="nav-item active">Graphic Card: {{costgraphicCard}} €</p>
-
-        </ul>
+        <!-- Modal -->
+        <div class="modal fade" id="Configmodel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Delete Configuration</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Do you really want to delete "{{name}}"
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" @click="DeleteConfiguration" data-dismiss="modal" class="btn btn-danger">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--END Modal -->
       </div>
 
       <hr>
@@ -191,7 +203,10 @@
           </div>
           <div class="Games" :style="gameDrag ? drag_box : ''">
             <draggable v-if="gamesIn" class="dragArea list-group collapse" v-model="gamesIn" @change="onGameDrop" group="games" >
-              <div class="list-group-item" v-for="(element, idx) in gamesIn" :key="element.id">
+              <div class="list-group-item d-flex justify-content-between" v-for="(element, idx) in gamesIn" :key="element.id">
+                <div class="backImage" :style="backImage(element)">
+
+                </div>
                 {{ element.name }} ({{element.price}} €)
                 <i class="fa fa-times close" @click="removeClonedAt(idx)"></i>
               </div>
@@ -267,10 +282,10 @@
 
               <!-- START CONFIG GRAPHIC CARDS -->
               <div class="col-lg-12 col-sm-12">
-                <div class="orange" data-toggle="collapse" data-target=".Cpu" aria-expanded="true" aria-controls="Games" style="cursor:pointer">
+                <div class="orange" data-toggle="collapse" data-target=".graphicCards" aria-expanded="true" aria-controls="Games" style="cursor:pointer">
                   <h3 class="mt-2">Graphic Cards</h3>
                 </div>
-                <div class="Cpu">
+                <div class="graphicCards">
                   <draggable
                         v-if="graphicCardsIn"
                         class="dragArea list-group"
@@ -298,11 +313,13 @@
 <script>
 // import  from "@/components/"
 import draggable from "vuedraggable";
+import axios from "axios";
 import { gamesMixin } from "@/components/Software/Mixins/gamesMixins.js"
 import { officewaresMixin } from "@/components/Software/Mixins/officewaresMixins.js"
 import { operationSystemsMixin } from "@/components/Software/Mixins/operationSystemsMixins.js"
 import { cpusMixin } from "@/components/Software/Mixins/cpusMixins.js"
 import { graphicCardsMixin } from "@/components/Software/Mixins/graphicCardsMixins.js"
+import {mapActions} from 'vuex';
 
 export default {
   name: 'Configurator',
@@ -318,46 +335,26 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      setConf: 'setConf',
+    }),
     log: function(evt) {
       window.console.log(evt);
+    },
+    async DeleteConfiguration() {
+      try {
+        const response = await axios.delete(`configurators/${this.configId}/`);
+        this.setConf();
+        this.$router.push({
+          name: "Homepage",
+        })
+        console.log(response);
+      } catch (error) {
+        console.error(error);
+      }
     }
   },
   computed: {
-    costGames() {
-      let sum = 0;
-      for (let game of this.gamesIn) {
-        sum += game.price;
-      }
-      return sum
-    },
-    costOfficeWare() {
-      let sum = 0;
-      for (let officeWare of this.officewaresIn) {
-        sum += officeWare.price;
-      }
-      return sum
-    },
-    costoperationSystems() {
-      let sum = 0;
-      for (let operationSystem of this.operationSystemsIn) {
-        sum += operationSystem.price;
-      }
-      return sum
-    },
-    costCPU() {
-      let sum = 0;
-      for (let cpu of this.cpusIn) {
-        sum += cpu.price;
-      }
-      return sum
-    },
-    costgraphicCard() {
-      let sum = 0;
-      for (let graphicCard of this.graphicCardsIn) {
-        sum += graphicCard.price;
-      }
-      return sum
-    },
     cost() {
       let sum = 0;
       for (let game of this.gamesIn) {
@@ -439,5 +436,13 @@ nav {
 
 i {
   cursor: pointer;
+}
+.backImage {
+  height: 30px;
+  width: 30px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 50%;
 }
 </style>

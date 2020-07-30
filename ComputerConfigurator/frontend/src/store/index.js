@@ -7,13 +7,21 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     user: null,
+    configs: null,
   },
   getters: {
     getUser: (state) => {
-      return state.user
+      return state.user;
+    },
+    getConf: (state) => {
+      console.log(state.configs)
+      return state.configs;
     },
   },
   mutations: {
+    setConf: (state, conf) => {
+      state.configs = conf;
+    },
     setUser: (state, user) => {
       state.user = user;
     },
@@ -22,6 +30,14 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    setConf: async ({commit}) => {
+      try {
+        const response = await axios.get('users-configurator-basics/');
+        commit('setConf', response.data)
+      } catch (error) {
+        console.error(error);
+      }
+    },
     setUser: async ({commit}) => {
       try {
         const response = await axios.get('rest-auth/user/');
@@ -29,11 +45,10 @@ export default new Vuex.Store({
       } catch (error) {
         console.error(error);
       }
-
     },
     unsetUser: ({commit}) => {
       commit('unsetUser')
-    }
+    },
   },
   modules: {}
 });

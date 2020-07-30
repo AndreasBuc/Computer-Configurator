@@ -29,7 +29,6 @@ export default {
     async getOfficeWare() {
       try {
         const response = await axios.get(`officewares/${this.id}/`);
-        console.log('Ich bin in OfficeWare');
         this.officeware=response.data;
       } catch (error) {
         console.error(error);
