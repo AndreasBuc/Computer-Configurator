@@ -5,10 +5,10 @@ from django.conf import settings
 class CPU(models.Model):
     manufacturer = models.CharField(max_length=256)
     model = models.CharField(max_length=256)
-    kernel = models.PositiveIntegerField()
-    speed = models.FloatField()
+    kernel = models.PositiveIntegerField(blank=True, null=True)
+    speed = models.FloatField(blank=True, null=True)
 
-    price = models.PositiveIntegerField()
+    price = models.PositiveIntegerField(blank=True, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

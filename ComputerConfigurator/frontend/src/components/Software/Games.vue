@@ -2,7 +2,7 @@
   <div class="Games">
     <div class="d-flex justify-content-between">
       <h3>Games</h3>
-      <i class="fa fa-plus-square-o fa-lg orange" style="cursor:pointer" data-toggle="modal" data-target="#gamesModel" @click="addnewGame"></i>
+
     </div>
     <table class="table">
       <thead>
@@ -10,6 +10,7 @@
           <th scope="col">#</th>
           <th scope="col">Name</th>
           <th scope="col">Price [€]</th>
+          <th scope="col"><i class="fa fa-plus-square-o ml-2 fa-lg" data-toggle="modal" data-target="#gamesModel"></i></th>
         </tr>
       </thead>
       <tbody>

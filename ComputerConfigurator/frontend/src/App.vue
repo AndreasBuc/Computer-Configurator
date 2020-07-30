@@ -65,6 +65,10 @@ export default {
 
 <style>
 a { cursor: pointer }
+.fa { cursor: pointer }
+.fa:hover {
+  color: rgb(182, 114, 56)
+}
 .maxHeight {
     height: 100%;
 }

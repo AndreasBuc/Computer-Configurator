@@ -7,29 +7,39 @@
     <td>{{cpu.price}}</td>
     <td>
       <div class="d-flex flex-row">
-        <i class="fa fa-edit close mx-auto" data-toggle="modal" :data-target="CpuModalID"></i>
-        <i class="fa fa-times close mx-auto" @click="deleteCPU"></i>
+        <i class="fa fa-edit mx-auto" data-toggle="modal" :data-target="CpuModalID"></i>
+        <i class="fa fa-times mx-auto" @click="deleteCPU"></i>
         <!-- Modal -->
-        <div class="modal fade" :id="'CPU'+cpu.id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" :id="'CPU'+cpu.id" tabindex="-1" role="dialog" aria-labelledby="CPUModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit Processor</h5>
+                <h5 class="modal-title" id="CPUModalLabel">Edit Processor</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
-                <input v-model="cpu.manufacturer" class="form-control my-1" type="text" id="Manufacturer" placeholder="Manufacturer">
-                <label for="Manufacturer">Edit Manufacturer</label>
-                <input v-model="cpu.model" class="form-control my-1" type="text" id="model" placeholder="Model">
-                <label for="model">Edit Model</label>
-                <input v-model="cpu.kernel" class="form-control my-1" type="Number" id="Kernel" placeholder="Kernel">
-                <label for="Kernel">Edit Kernel</label>
-                <input v-model="cpu.speed" class="form-control my-1" step="0.1" type="Number" id="Speed" placeholder="Speed">
-                <label for="Speed">Edit Speed</label>
-                <input v-model="cpu.price" class="form-control my-1" type="Number" id="Price" placeholder="Price">
-                <label for="Price">Edit Price</label>
+
+                <div class="row mb-3">
+                  <div class="col-12">
+                  </div>
+                  <div class="col">
+                    <input v-model="cpu.manufacturer" class="form-control my-1" type="text" placeholder="Manufacturer*">
+                  </div>
+                  <div class="col">
+                    <input v-model="cpu.model" class="form-control my-1" type="text" placeholder="Model*">
+                  </div>
+                  <div class="col-12">
+                    <small class="form-text text-muted">Manufacturer and Model form the Name.</small>
+                  </div>
+                </div>
+                <small class="form-text text-muted">Kernel:</small>
+                <input v-model="cpu.kernel" class="form-control my-1" type="Number" placeholder="Kernel">
+                <small class="form-text text-muted">Speed:</small>
+                <input v-model="cpu.speed" class="form-control my-1" step="0.1" type="Number" placeholder="Speed">
+                <small class="form-text text-muted">Price:</small>
+                <input v-model="cpu.price" class="form-control my-1" type="Number" placeholder="Price">
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
