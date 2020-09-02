@@ -31,7 +31,7 @@
                   <label >What does it cost</label>
                   <input v-model="game.price" type="Number" class="form-control" placeholder="Enter a Price">
                 </div>
-                  <input type="file" @change="onFileSelected" class="btn btn-outline-dark" id="validatedCustomFile" required>
+                  <input type="file" @change="onFileSelected" class="btn btn-outline-dark" required>
                 <!-- Geht leider nicht mit Model -.- -->
                 <!-- <input @change="onFileSelected" type="file" style="display:none" ref="fileInput">
                 <button @click="$refs.fileInput.click()" class="btn btn-outline-dark">Choose File</button> -->
@@ -67,6 +67,7 @@ export default {
   data() {
     return {
       game: null,
+      image: null,
     }
   },
   methods: {
@@ -82,11 +83,32 @@ export default {
       if(this.game.name != undefined && this.game.name != "") {
         try {
           const response = await axios.put(`games/${this.id}/`, this.game);
+          if(this.image != null) {
+            this.uploadPicture(response.data.id);
+          }
           this.game=response.data;
         } catch (error) {
           console.error(error);
         }
       }
+    },
+    async uploadPicture(id) {
+
+        const fd = new FormData();
+        fd.append('image', this.image, this.image.name)
+        try {
+          const response = await axios.post(`games/${id}/upload-image/`, fd, {
+            onUploadProgress: uploadEvent => {
+              console.log('Upload Progress: ' + Math.round(uploadEvent.loaded / uploadEvent.total * 100) + '%')
+            }
+          });
+          console.log(response);
+          this.game.image = response.data.image;
+
+        } catch (error) {
+          console.error(error);
+        }
+        this.image=null;
     },
     async deleteGame() {
       try {
@@ -97,7 +119,8 @@ export default {
       }
     },
     onFileSelected() {
-      // TODO: Hier weiterarbeiten!!
+      console.log(event);
+      this.image = event.target.files[0];
     },
   },
   created() {
